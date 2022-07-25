@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Registro Vacaciones";
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <table class="table w-100 table-responsive-md" id="registroVacaciones">
+                <thead>
+                    <tr>
+                        <th>
+                            <p>Nombres</p>
+                        </th>
+                        <th>
+                            <p>Apellido Paterno</p>
+                        </th>
+                        <th>
+                            <p>Apellido Materno</p>
+                        </th>
+                        <th>
+                            <p>Sexo</p>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-md-6 col-12">
+            <button class="btn btn-primary">Solicitar Vacaciones</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $("#registroVacaciones").DataTable({
+                ajax: {
+                    url: "@Url.Action("ObtenerRegistroVacacional", "Home")",
+                    crossDomain: true,
+                    method: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: (d) => JSON.stringify(d),
+                    dataSrc: ""
+                },
+                columns: [
+                    { data: "Nombres" },
+                    { data: "ApellidoPaterno" },
+                    { data: "ApellidoMaterno" },
+                    { data: "Sexo" }
+                ],
+                error: (xhr, status, error) => Swal.fire("Error " + error)
+            });
+        });
+    </script>
+}
