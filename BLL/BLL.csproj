@@ -44,5 +44,15 @@
     <Compile Include="SKFBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{DC8779DB-0C65-46FE-92C5-2DFC5A74B7B4}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ET\ET.csproj">
+      <Project>{55A87F0B-2B96-4454-A5EF-B4917200A144}</Project>
+      <Name>ET</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

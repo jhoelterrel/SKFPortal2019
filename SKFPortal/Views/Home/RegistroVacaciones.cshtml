@@ -10,16 +10,16 @@
                 <thead>
                     <tr>
                         <th>
-                            <p>Nombres</p>
+                            <p>ID</p>
                         </th>
                         <th>
-                            <p>Apellido Paterno</p>
+                            <p>Nombre</p>
                         </th>
                         <th>
-                            <p>Apellido Materno</p>
+                            <p>Periodo</p>
                         </th>
                         <th>
-                            <p>Sexo</p>
+                            <p>Planilla</p>
                         </th>
                     </tr>
                 </thead>
@@ -45,10 +45,10 @@
                     dataSrc: ""
                 },
                 columns: [
-                    { data: "Nombres" },
-                    { data: "ApellidoPaterno" },
-                    { data: "ApellidoMaterno" },
-                    { data: "Sexo" }
+                    { data: "Personal_Id" },
+                    { data: "Nombre_Completo" },
+                    { data: "Periodo_Id" },
+                    { data: "Planilla_Id" }
                 ],
                 error: (xhr, status, error) => Swal.fire("Error " + error)
             });

@@ -46,5 +46,15 @@
     <Compile Include="EmpleadoSKFDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ET\ET.csproj">
+      <Project>{55A87F0B-2B96-4454-A5EF-B4917200A144}</Project>
+      <Name>ET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HL\HL.csproj">
+      <Project>{8689F01F-F418-44B6-9507-D53593F96455}</Project>
+      <Name>HL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

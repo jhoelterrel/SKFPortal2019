@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL;
+using ET;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace BLL
 {
     public class SKFBLL
     {
+        private readonly EmpleadoSKFDAL datos = new EmpleadoSKFDAL();
+        public List<EmpleadoSKFVacacionET> ListarVacaciones() => datos.ListarVacacionesBD();
     }
 }
