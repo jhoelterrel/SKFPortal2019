@@ -12,5 +12,7 @@ namespace BLL
     {
         private readonly EmpleadoSKFDAL datos = new EmpleadoSKFDAL();
         public List<EmpleadoSKFVacacionET> ListarVacaciones() => datos.ListarVacacionesBD();
+
+        public String Login(String clave, String usuario) => datos.LoginBD(clave, usuario);
     }
 }

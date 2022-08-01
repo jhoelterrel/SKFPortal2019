@@ -11,11 +11,17 @@ namespace SKFPortal.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
+            
+            if (TempData["Message"] != null)
+                ViewBag.Message = TempData["Message"];
+
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -23,6 +29,7 @@ namespace SKFPortal.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -30,11 +37,13 @@ namespace SKFPortal.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult DashBoard()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult RegistroVacaciones()
         {
             return View();
@@ -47,6 +56,31 @@ namespace SKFPortal.Controllers
             List<EmpleadoSKFVacacionET> listaEmpleados = skfBLL.ListarVacaciones();
 
             return JsonConvert.SerializeObject(listaEmpleados, Formatting.Indented);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Login(String clave, String usuario)
+        {
+            SKFBLL skfBLL = new SKFBLL();
+            String resultLogin = skfBLL.Login(clave, usuario);
+            String action = "";
+            switch (resultLogin)
+            {
+                case "0":
+                    action = "Index";
+                    TempData["Message"] = "Contraseña incorrecta";
+                    break;
+                case "1":
+                    action = "Dashboard";
+                    break;
+                case "2":
+                    action = "Index";
+                    TempData["Message"] = "Usuario no encontrado";
+                    break;
+            }
+
+            return RedirectToAction(action, "Home");
         }
     }
 }

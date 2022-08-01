@@ -5,50 +5,107 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-12">
-            <table class="table w-100 table-responsive-md" id="registroVacaciones">
-                <thead>
-                    <tr>
-                        <th>
-                            <p>ID</p>
-                        </th>
-                        <th>
-                            <p>Nombre</p>
-                        </th>
-                        <th>
-                            <p>Periodo</p>
-                        </th>
-                        <th>
-                            <p>Planilla</p>
-                        </th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="col-12">
+            <h1>Vacaciones</h1>
         </div>
-        <div class="col-md-6 col-12">
-            <button class="btn btn-primary">Solicitar Vacaciones</button>
+        <div class="col-12">
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#solicitarVacacionesModal">Solicitar Vacaciones</button>
+        </div>
+        <div class="col-12">
+            <div class="table-responsive m-3">
+                <table class="table w-100 table-responsive-md" id="vacacionesDatosVacacion">
+                    <thead>
+                        <tr>
+                            <th><p>Compania</p></th>
+                            <th><p>Ruc</p></th>
+                            <th><p>Direccion</p></th>
+                            <th><p>Jefe</p></th>
+                            <th><p>Location</p></th>
+                            <th><p>Cargo</p></th>
+                            <th><p>Area</p></th>
+                            <th><p>Proyecto</p></th>
+                            <th><p>PersonalID</p></th>
+                            <th><p>NombreCompleto</p></th>
+                            <th><p>FechaIngreso</p></th>
+                            <th><p>PeriodoVacacional</p></th>
+                            <th><p>FechaInicioSalida</p></th>
+                            <th><p>FechaFinSalida</p></th>
+                            <th><p>DiasSalida</p></th>
+                            <th><p>DiasIndemnizable</p></th>
+                            <th><p>DiasPendiente</p></th>
+                            <th><p>DiasTruncos</p></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="solicitarVacacionesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "solicitarVacaciones" }))
+            {
+                <div class="modal-header">
+                    <h5 class="modal-title">Solicitud de Vacaciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="numeroDias" class="form-label">Numero de dias</label>
+                        <input type="number" class="form-control" id="numeroDias">
+                        <div id="numeroDiasHelp" class="form-text">Numero de dias de vacacion.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha deinicio</label>
+                        <input class="form-control" id="fechaInicio" aria-describedby="emailHelp">
+                        <div id="fechaInicioHelp" class="form-text">Fecha de inicio de la vacacion.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Solicitar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
 @section scripts{
     <script>
         $(function () {
-            $("#registroVacaciones").DataTable({
+            $("#fechaInicio").datepicker();
+
+            $("#vacacionesDatosVacacion").DataTable({
                 ajax: {
                     url: "@Url.Action("ObtenerRegistroVacacional", "Home")",
                     crossDomain: true,
                     method: "GET",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: (d) => JSON.stringify(d),
                     dataSrc: ""
                 },
                 columns: [
-                    { data: "Personal_Id" },
-                    { data: "Nombre_Completo" },
-                    { data: "Periodo_Id" },
-                    { data: "Planilla_Id" }
+                    { data: "Compania" },
+                    { data: "Ruc" },
+                    { data: "Direccion" },
+                    { data: "Jefe" },
+                    { data: "Location" },
+                    { data: "Cargo" },
+                    { data: "Area" },
+                    { data: "Proyecto" },
+                    { data: "PersonalID" },
+                    { data: "NombreCompleto" },
+                    { data: "FechaIngreso" },
+                    { data: "PeriodoVacacional" },
+                    { data: "FechaInicioSalida" },
+                    { data: "FechaFinSalida" },
+                    { data: "DiasSalida" },
+                    { data: "DiasIndemnizable" },
+                    { data: "DiasPendiente" },
+                    { data: "DiasTruncos" }
                 ],
                 error: (xhr, status, error) => Swal.fire("Error " + error)
             });
