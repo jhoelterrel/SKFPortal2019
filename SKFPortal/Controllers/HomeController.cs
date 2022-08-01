@@ -50,10 +50,10 @@ namespace SKFPortal.Controllers
         }
 
         [HttpGet]
-        public string ObtenerRegistroVacacional()
+        public string ObtenerRegistroVacacional(string personal_id)
         {
             SKFBLL skfBLL = new SKFBLL();
-            List<EmpleadoSKFVacacionET> listaEmpleados = skfBLL.ListarVacaciones();
+            List<EmpleadoSKFVacacionET> listaEmpleados = skfBLL.ListarVacaciones(personal_id);
 
             return JsonConvert.SerializeObject(listaEmpleados, Formatting.Indented);
         }

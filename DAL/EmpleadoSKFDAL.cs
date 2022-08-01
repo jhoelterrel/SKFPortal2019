@@ -12,7 +12,7 @@ namespace DAL
 {
     public class EmpleadoSKFDAL
     {
-        public List<EmpleadoSKFVacacionET> ListarVacacionesBD()
+        public List<EmpleadoSKFVacacionET> ListarVacacionesBD(string pPersonal_ID)
         {
             List<EmpleadoSKFVacacionET> listaPersonal = new List<EmpleadoSKFVacacionET>();
             
@@ -21,7 +21,7 @@ namespace DAL
                 using(SqlCommand cmd = new SqlCommand("FEXT_SP_REPORTE_RECORD_VACACIONAL", conn.connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Personal", "000553");
+                    cmd.Parameters.AddWithValue("@Personal", pPersonal_ID);
                     cmd.CommandTimeout = 120;
                     conn.Open();
                     
