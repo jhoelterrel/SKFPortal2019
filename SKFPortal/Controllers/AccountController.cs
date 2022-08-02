@@ -28,30 +28,42 @@ namespace SKFPortal.Controllers
         public ActionResult Login(vmUser vm)
         {
             SKFBLL skfBLL = new SKFBLL();
-            String resultLogin = skfBLL.Login(vm.password, vm.username);
-
-            switch (resultLogin)
+            try
             {
-                case "0":               
-                    TempData["Message"] = "Contraseña incorrecta";
-                    return View(vm);
-                    break;
-                case "1":
-                    FormsAuthentication.SetAuthCookie(vm.username, false);
-                    Session["USERLOGIN"] = vm;
-                    break;
-                case "2":
+                var usuarioSKF = skfBLL.Login(vm.password, vm.username);
+                if (usuarioSKF != null)
+                {
+                    if (!string.IsNullOrEmpty(usuarioSKF.Personal_id))
+                    {
+                        FormsAuthentication.SetAuthCookie(usuarioSKF.Personal_id, false);
+                        Session["UsuarioSKF"] = usuarioSKF;
+                        Session["NombreUsuario"] = string.Format("{0}, {1} {2}", usuarioSKF.Nombres, usuarioSKF.Apellido_Paterno, usuarioSKF.Apellido_Materno);
+                        return RedirectToAction("Dashboard", "Home");
+
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Usuario no encontrado / Credenciales incorrectas";
+                        return View(vm);
+                    }
+                }
+                else
+                {
                     TempData["Message"] = "Usuario no encontrado";
                     return View(vm);
-                    break;
+                }
             }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            
 
 
-
-            return RedirectToAction("Dashboard", "Home");
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

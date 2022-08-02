@@ -12,21 +12,69 @@
             <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#solicitarVacacionesModal">Solicitar Vacaciones</button>
         </div>
         <div class="col-12">
+            <form class="row">
+                <div class="col-md-6">
+                    <label for="compania" class="form-label">Compañia</label>
+                    <input type="text" class="form-control" id="compania" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="ruc" class="form-label">RUC</label>
+                    <input type="text" class="form-control" id="ruc" readonly>
+                </div>
+                <div class="col-md-12">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="jefe" class="form-label">Jefe</label>
+                    <input type="text" class="form-control" id="jefe" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="cargo" class="form-label">Cargo</label>
+                    <input type="text" class="form-control" id="cargo" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="area" class="form-label">Area</label>
+                    <input type="text" class="form-control" id="area" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="proyecto" class="form-label">Proyecto</label>
+                    <input type="text" class="form-control" id="proyecto" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="personalid" class="form-label">PersonalID</label>
+                    <input type="text" class="form-control" id="personalid" readonly>
+                </div>
+                <div class="col-md-9">
+                    <label for="nombrecompleto" class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" id="nombrecompleto" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label for="fechaingreso" class="form-label">Fecha Ingreso</label>
+                    <input type="text" class="form-control" id="fechaingreso" readonly>
+                </div>
+            </form>
+        </div>
+        <div class="col-12">
             <div class="table-responsive m-3">
                 <table class="table w-100 table-responsive-md" id="vacacionesDatosVacacion">
                     <thead>
                         <tr>
-                            <th><p>Compania</p></th>
-                            <th><p>Ruc</p></th>
-                            <th><p>Direccion</p></th>
-                            <th><p>Jefe</p></th>
-                            <th><p>Location</p></th>
-                            <th><p>Cargo</p></th>
-                            <th><p>Area</p></th>
-                            <th><p>Proyecto</p></th>
-                            <th><p>PersonalID</p></th>
-                            <th><p>NombreCompleto</p></th>
-                            <th><p>FechaIngreso</p></th>
+                            @*<th><p>Compania</p></th>*@
+                            @*<th><p>Ruc</p></th>
+                                <th><p>Direccion</p></th>*@
+                            @*<th><p>Jefe</p></th>
+                                <th><p>Location</p></th>
+                                <th><p>Cargo</p></th>
+                                <th><p>Area</p></th>
+                                <th><p>Proyecto</p></th>
+                                <th><p>PersonalID</p></th>*@
+                            @*<th><p>NombreCompleto</p></th>
+                                <th><p>FechaIngreso</p></th>*@
                             <th><p>PeriodoVacacional</p></th>
                             <th><p>FechaInicioSalida</p></th>
                             <th><p>FechaFinSalida</p></th>
@@ -75,30 +123,46 @@
 
 @section scripts{
     <script>
+        let datavacaciones;
+        let tablavaciones;
+        async function getDataVacaciones() {
+            loadAnimation(false);
+            let response = await fetch("@Url.Action("ObtenerRegistroVacacional", "Home")", {
+                                        method: "GET",
+                                        cache: "no-cache",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+            });
+            closeAnimation();
+         return response.json();
+        }
         $(function () {
+
             $("#fechaInicio").datepicker();
 
-            $("#vacacionesDatosVacacion").DataTable({
-                ajax: {
-                    url: "@Url.Action("ObtenerRegistroVacacional", "Home")",
-                    crossDomain: true,
-                    method: "GET",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    dataSrc: ""
-                },
+
+            tablavaciones = $("#vacacionesDatosVacacion").DataTable({
+                //ajax: {
+                //    url: "Url.Action("ObtenerRegistroVacacional", "Home")",
+                //    crossDomain: true,
+                //    method: "GET",
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    dataSrc: ""
+                //},
                 columns: [
-                    { data: "Compania" },
-                    { data: "Ruc" },
-                    { data: "Direccion" },
-                    { data: "Jefe" },
-                    { data: "Location" },
-                    { data: "Cargo" },
-                    { data: "Area" },
-                    { data: "Proyecto" },
-                    { data: "PersonalID" },
-                    { data: "NombreCompleto" },
-                    { data: "FechaIngreso" },
+                    //{ data: "Compania" },
+                    //{ data: "Ruc" },
+                    //{ data: "Direccion" },
+                    //{ data: "Jefe" },
+                    //{ data: "Location" },
+                    //{ data: "Cargo" },
+                    //{ data: "Area" },
+                    //{ data: "Proyecto" },
+                    //{ data: "PersonalID" },
+                    //{ data: "NombreCompleto" },
+                    //{ data: "FechaIngreso" },
                     { data: "PeriodoVacacional" },
                     { data: "FechaInicioSalida" },
                     { data: "FechaFinSalida" },
@@ -109,6 +173,51 @@
                 ],
                 error: (xhr, status, error) => Swal.fire("Error " + error)
             });
+            updateElements();
         });
+
+        async function updateElements() {
+           //obtener data
+            datavacaciones = await getDataVacaciones();
+            console.log(datavacaciones)
+             //actualizar datos de tabla
+            tablavaciones.clear();
+            tablavaciones.rows.add(datavacaciones).draw();
+
+            //actualizar elementos
+
+            if (datavacaciones.length > 0) {
+                document.getElementById("compania").setAttribute("value", datavacaciones[0].Compania);
+                document.getElementById("ruc").setAttribute("value", datavacaciones[0].Ruc);
+                document.getElementById("jefe").setAttribute("value", datavacaciones[0].Jefe);
+                document.getElementById("direccion").setAttribute("value", datavacaciones[0].Direccion);
+                document.getElementById("location").setAttribute("value", datavacaciones[0].Location);
+                document.getElementById("cargo").setAttribute("value", datavacaciones[0].Cargo);
+                document.getElementById("area").setAttribute("value", datavacaciones[0].Area);
+                document.getElementById("proyectos").setAttribute("value", datavacaciones[0].Proyecto);
+                document.getElementById("personalid").setAttribute("value", datavacaciones[0].PersonalID);
+                document.getElementById("nombrecompleto").setAttribute("value", datavacaciones[0].NombreCompleto);
+                document.getElementById("fechaingreso").setAttribute("value", datavacaciones[0].FechaIngreso);
+            }
+        }
+
+        function loadAnimation(timer) {
+            Swal.fire({
+                title: "Cargando...",
+                html: "<b>Espere un momento...</b>",
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                timer: timer,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+        }
+
+        function closeAnimation() {
+            Swal.close();
+        }
+
     </script>
+
 }

@@ -11,22 +11,22 @@
                 <img src="~/Content/img/index.png" class="img-fluid" alt="" />
             </div>
             <div class="col-md-6 col-12">
-                <h1 style="color: #6cd1ff;">¡Bienvenido SKF!</h1>
-                <p class="text-light">Ingresa al portal para estar al dia.</p>
+                <h1 style="color: #6cd1ff;">¡Bienvenido a Viva - SKF!</h1>
+                <p class="text-light">Ingresa al portal.</p>
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <!-- Email input -->
             <div class="form-outline mb-4">
                 @*<label class="form-label text-light" for="usuario">Usuario</label>
         <input type="text" id="usuario" name="usuario" class="form-control" required />*@
-                @Html.TextBoxFor(u => u.username, new { @class = "form-control", type = "text", placeholder="username" })
+                @Html.TextBoxFor(u => u.username, new { @class = "form-control", type = "text", placeholder="Usuario" })
             </div>
             @Html.AntiForgeryToken()
                     <!-- Password input -->
                     <div class="form-outline mb-4">
                         @*<label class="form-label text-light" for="clave">Password</label>
                         <input type="password" id="clave" name="clave" class="form-control" required />*@
-                        @Html.TextBoxFor(u=>u.password,new { @class= "form-control", type="password", placeholder = "password" })
+                        @Html.TextBoxFor(u=>u.password,new { @class= "form-control", type="password", placeholder = "Clave" })
                     </div>
 
                     <button type="submit" id="btn-ingresar" class="btn btn-primary">Ingresa</button>

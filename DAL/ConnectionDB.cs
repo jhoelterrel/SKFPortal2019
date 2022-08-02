@@ -14,7 +14,6 @@ namespace DAL
 
         public ConnectionDB()
         {
-            //string connectionString = "Server=DESKTOP-CFBON5B;Database=SCIRERH;Trusted_Connection=True;";
             string connectionString = ConfigurationManager.AppSettings["db:stringConnection"].ToString();
 
             connection = new SqlConnection(connectionString);

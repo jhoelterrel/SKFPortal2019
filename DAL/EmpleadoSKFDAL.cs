@@ -73,9 +73,9 @@ namespace DAL
             return listaPersonal;
         }
 
-        public String LoginBD(String clave, String usuario)
+        public UsuarioSKFET LoginBD(String clave, String usuario)
         {
-            String resultadoLogin = "";
+            UsuarioSKFET usuarioSKFET = new UsuarioSKFET();
 
             using (ConnectionDB conn = new ConnectionDB())
             {
@@ -86,20 +86,30 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@VC_USUARIO", usuario);
                     cmd.Parameters.AddWithValue("@VC_CLAVE", clave);
 
-                    cmd.Parameters.Add("@CH_RESULTADO_LOGIN", SqlDbType.Char, 1);
-                    cmd.Parameters["@CH_RESULTADO_LOGIN"].Direction = ParameterDirection.Output;
+
 
                     conn.Open();
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    resultadoLogin = cmd.Parameters["@CH_RESULTADO_LOGIN"].Value == DBNull.Value ? string.Empty : Convert.ToString(cmd.Parameters["@CH_RESULTADO_LOGIN"].Value);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            usuarioSKFET.Personal_id = reader["Personal_id"] == null ? string.Empty : Convert.ToString(reader["Personal_id"]);
+                            usuarioSKFET.Apellido_Paterno = reader["Apellido_Paterno"] == null ? string.Empty : Convert.ToString(reader["Apellido_Paterno"]);
+                            usuarioSKFET.Apellido_Materno = reader["Apellido_Materno"] == null ? string.Empty : Convert.ToString(reader["Apellido_Materno"]);
+                            usuarioSKFET.Nombres = reader["Nombres"] == null ? string.Empty : Convert.ToString(reader["Nombres"]);
+                            usuarioSKFET.Email = reader["Email"] == null ? string.Empty : Convert.ToString(reader["Email"]);
+                        }
+                    }
 
+                 
                     conn.Close();
                 }
             }
 
-            return resultadoLogin;
+            return usuarioSKFET;
         }
     }
 }
