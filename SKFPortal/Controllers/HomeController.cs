@@ -9,9 +9,9 @@ using System.Web.Mvc;
 
 namespace SKFPortal.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        [Authorize]
         public ActionResult Index()
         {
             
@@ -21,7 +21,6 @@ namespace SKFPortal.Controllers
             return View();
         }
 
-        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -29,7 +28,6 @@ namespace SKFPortal.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -37,13 +35,11 @@ namespace SKFPortal.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult DashBoard()
         {
             return View();
         }
 
-        [Authorize]
         public ActionResult RegistroVacaciones()
         {
             return View();
@@ -53,34 +49,17 @@ namespace SKFPortal.Controllers
         public string ObtenerRegistroVacacional()
         {
             SKFBLL skfBLL = new SKFBLL();
-            List<EmpleadoSKFVacacionET> listaEmpleados = skfBLL.ListarVacaciones();
+            List<EmpleadoSKFVacacionET> listaEmpleados = new List<EmpleadoSKFVacacionET>();
+            var _usuarioSKF = (UsuarioSKFET)Session["UsuarioSKF"];
+
+            if (_usuarioSKF != null)
+            {
+                listaEmpleados = skfBLL.ListarVacaciones(_usuarioSKF.Personal_id);
+            }
 
             return JsonConvert.SerializeObject(listaEmpleados, Formatting.Indented);
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult Login(String clave, String usuario)
-        {
-            SKFBLL skfBLL = new SKFBLL();
-            String resultLogin = skfBLL.Login(clave, usuario);
-            String action = "";
-            switch (resultLogin)
-            {
-                case "0":
-                    action = "Index";
-                    TempData["Message"] = "Contraseña incorrecta";
-                    break;
-                case "1":
-                    action = "Dashboard";
-                    break;
-                case "2":
-                    action = "Index";
-                    TempData["Message"] = "Usuario no encontrado";
-                    break;
-            }
-
-            return RedirectToAction(action, "Home");
-        }
+      
     }
 }
