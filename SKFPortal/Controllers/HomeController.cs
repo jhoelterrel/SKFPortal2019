@@ -45,6 +45,11 @@ namespace SKFPortal.Controllers
             return View();
         }
 
+        public ActionResult VerBoletas()
+        {
+            return View();
+        }
+
         [HttpGet]
         public string ObtenerRegistroVacacional()
         {

@@ -31,7 +31,7 @@ namespace SKFPortal.Controllers
             try
             {
                 var usuarioSKF = skfBLL.Login(vm.password, vm.username);
-                if (usuarioSKF != null)
+                if (usuarioSKF.Email != null)
                 {
                     if (!string.IsNullOrEmpty(usuarioSKF.Personal_id))
                     {

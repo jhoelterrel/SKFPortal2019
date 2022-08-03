@@ -96,20 +96,44 @@
             @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "solicitarVacaciones" }))
             {
                 <div class="modal-header">
-                    <h5 class="modal-title">Solicitud de Vacaciones</h5>
+                    <h5 class="modal-title fw-bold">Solicitud de Vacaciones</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="numeroDias" class="form-label">Numero de dias</label>
-                        <input type="number" class="form-control" id="numeroDias">
-                        <div id="numeroDiasHelp" class="form-text">Numero de dias de vacacion.</div>
-                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-12">
+                            <label for="infEmpleadoNombre" class="form-label">Empleado</label>
+                            <input type="text" class="form-control" id="infEmpleadoNombre" disabled>
+                        </div>
+                        <div class="mb-3 col-md-6 col-12">
+                            <label for="infArea" class="form-label">Area</label>
+                            <input type="text" class="form-control" id="infArea" disabled>
+                        </div>
+                        <div class="mb-3 col-md-6 col-12">
+                            <label for="infFechaInicioLabores" class="form-label">Fecha Inicio Labores</label>
+                            <input type="text" class="form-control" id="infFechaInicioLabores" disabled>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="fechaInicio" class="form-label">Fecha deinicio</label>
-                        <input class="form-control" id="fechaInicio" aria-describedby="emailHelp">
-                        <div id="fechaInicioHelp" class="form-text">Fecha de inicio de la vacacion.</div>
+                        <div class="mb-3 col-12">
+                            <label for="fechaInicio" class="form-label">Fecha de inicio</label>
+                            <input class="form-control" id="fechaInicio" required onchange="cambiarFechaVacacion()">
+                            <div id="fechaInicioHelp" class="form-text">Fecha de inicio de la vacacion.</div>
+                        </div>
+
+                        <div class="mb-3 col-12">
+                            <label for="numeroDias" class="form-label">Numero de dias</label>
+                            <input type="number" class="form-control" id="numeroDias" required onchange="cambiarFechaVacacion()">
+                            <div id="numeroDiasHelp" class="form-text">Numero de dias de vacacion.</div>
+                        </div>
+
+                        <div class="mb-3 col-12">
+                            <label for="fechaFin" class="form-label">Fecha de fin</label>
+                            <input class="form-control" id="fechaFin" required disabled>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="dateRange" class="form-label">Rango Vacacion</label>
+                            <input type="text" name="dateRange" id="dateRange" disabled/>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -137,9 +161,23 @@
             closeAnimation();
          return response.json();
         }
+
+        function cambiarFechaVacacion() {
+            let fechaInicioVacacion = $("#fechaInicio").val() == null || $("#fechaInicio").val() == "" ? moment.format('DD/mm/yy') : $("#fechaInicio").val();
+            let dias = $("#numeroDias").val() == null || $("#numeroDias").val() == "" ? 0 : $("#numeroDias").val();
+
+            let fechaFinVacacion = moment(fechaInicioVacacion).add(dias, 'days').format('MM/DD/YYYY');
+
+            $("#fechaFin").val(fechaFinVacacion);
+
+            $('#dateRange').daterangepicker({ startDate: fechaInicioVacacion, endDate: fechaFinVacacion });
+        } 
+
         $(function () {
 
             $("#fechaInicio").datepicker();
+            $("#fechaFin").datepicker();
+            $("#dateRange").daterangepicker();
 
 
             tablavaciones = $("#vacacionesDatosVacacion").DataTable({
@@ -198,6 +236,10 @@
                 document.getElementById("personalid").setAttribute("value", datavacaciones[0].PersonalID);
                 document.getElementById("nombrecompleto").setAttribute("value", datavacaciones[0].NombreCompleto);
                 document.getElementById("fechaingreso").setAttribute("value", datavacaciones[0].FechaIngreso);
+
+                document.getElementById("infEmpleadoNombre").setAttribute("value", datavacaciones[0].PersonalID + "\t" + datavacaciones[0].NombreCompleto);
+                document.getElementById("infArea").setAttribute("value", datavacaciones[0].Area);
+                document.getElementById("infFechaInicioLabores").setAttribute("value", datavacaciones[0].FechaIngreso);
             }
         }
 

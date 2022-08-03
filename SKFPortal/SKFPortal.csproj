@@ -171,6 +171,7 @@
     <Content Include="Views\Home\DashBoard.cshtml" />
     <Content Include="Views\Home\RegistroVacaciones.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\VerBoletas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
