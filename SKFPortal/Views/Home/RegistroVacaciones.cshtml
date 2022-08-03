@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Vacaciones</h1>
+            <h1>Record de Vacaciones</h1>
         </div>
         <div class="col-12">
             <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#solicitarVacacionesModal">Solicitar Vacaciones</button>
@@ -14,76 +14,72 @@
         <div class="col-12">
             <form class="row">
                 <div class="col-md-6">
-                    <label for="compania" class="form-label">Compañia</label>
+                    <label for="compania" class="form-label">Compañía :</label>
                     <input type="text" class="form-control" id="compania" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label for="ruc" class="form-label">RUC</label>
+                    <label for="ruc" class="form-label">RUC :</label>
                     <input type="text" class="form-control" id="ruc" readonly>
                 </div>
-                <div class="col-md-12">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" readonly>
-                </div>
                 <div class="col-md-6">
-                    <label for="jefe" class="form-label">Jefe</label>
+                    <label for="jefe" class="form-label">Jefe :</label>
                     <input type="text" class="form-control" id="jefe" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label for="location" class="form-label">Location</label>
+                    <label for="location" class="form-label">Locación :</label>
                     <input type="text" class="form-control" id="location" readonly>
                 </div>
+                <div class="col-md-2">
+                    <label for="personalid" class="form-label">Código de Personal :</label>
+                    <input type="text" class="form-control" id="personalid" readonly>
+                </div>
+                <div class="col-md-2">
+                    <label for="tipdoc" class="form-label">Tipo de Documento :</label>
+                    <input type="text" class="form-control" id="tipdoc" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label for="numerodoc" class="form-label">Número de Documento :</label>
+                    <input type="text" class="form-control" id="numerodoc" readonly>
+                </div>
+                <div class="col-md-5">
+                    <label for="nombrecompleto" class="form-label">Nombre Completo :</label>
+                    <input type="text" class="form-control" id="nombrecompleto" readonly>
+                </div>
                 <div class="col-md-6">
-                    <label for="cargo" class="form-label">Cargo</label>
+                    <label for="cargo" class="form-label">Cargo :</label>
                     <input type="text" class="form-control" id="cargo" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label for="area" class="form-label">Area</label>
+                    <label for="area" class="form-label">Área :</label>
                     <input type="text" class="form-control" id="area" readonly>
                 </div>
                 <div class="col-md-6">
-                    <label for="proyecto" class="form-label">Proyecto</label>
-                    <input type="text" class="form-control" id="proyecto" readonly>
+                    <label for="ccosto" class="form-label">Centro de Costo :</label>
+                    <input type="text" class="form-control" id="ccosto" readonly>
                 </div>
-                <div class="col-md-6">
-                    <label for="personalid" class="form-label">PersonalID</label>
-                    <input type="text" class="form-control" id="personalid" readonly>
-                </div>
-                <div class="col-md-9">
-                    <label for="nombrecompleto" class="form-label">Nombre Completo</label>
-                    <input type="text" class="form-control" id="nombrecompleto" readonly>
-                </div>
+
                 <div class="col-md-3">
-                    <label for="fechaingreso" class="form-label">Fecha Ingreso</label>
+                    <label for="fechaingreso" class="form-label">Fecha Ingreso :</label>
                     <input type="text" class="form-control" id="fechaingreso" readonly>
                 </div>
             </form>
         </div>
         <div class="col-12">
             <div class="table-responsive m-3">
-                <table class="table w-100 table-responsive-md" id="vacacionesDatosVacacion">
+                <table class="table w-100 table-responsive-md" style="display:compact" id="vacacionesDatosVacacion">
                     <thead>
                         <tr>
-                            @*<th><p>Compania</p></th>*@
-                            @*<th><p>Ruc</p></th>
-                                <th><p>Direccion</p></th>*@
-                            @*<th><p>Jefe</p></th>
-                                <th><p>Location</p></th>
-                                <th><p>Cargo</p></th>
-                                <th><p>Area</p></th>
-                                <th><p>Proyecto</p></th>
-                                <th><p>PersonalID</p></th>*@
-                            @*<th><p>NombreCompleto</p></th>
-                                <th><p>FechaIngreso</p></th>*@
-                            <th><p>PeriodoVacacional</p></th>
-                            <th><p>FechaInicioSalida</p></th>
-                            <th><p>FechaFinSalida</p></th>
-                            <th><p>DiasSalida</p></th>
-                            <th><p>DiasIndemnizable</p></th>
-                            <th><p>DiasPendiente</p></th>
-                            <th><p>DiasTruncos</p></th>
+                            <th><p>Periodo Vacacional</p></th>
+                            <th><p>Fecha Inicio Salida</p></th>
+                            <th><p>Fecha Fin Salida</p></th>
+                            <th><p>Dias Salida</p></th>
+                            <th><p>Dias Vencidos</p></th>
+                            <th><p>Dias Pendientes</p></th>
+                            <th><p>Dias Truncos</p></th>
                         </tr>
                     </thead>
+                    <tfoot id="tfTotales">                        
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -143,26 +139,10 @@
 
 
             tablavaciones = $("#vacacionesDatosVacacion").DataTable({
-                //ajax: {
-                //    url: "Url.Action("ObtenerRegistroVacacional", "Home")",
-                //    crossDomain: true,
-                //    method: "GET",
-                //    contentType: "application/json; charset=utf-8",
-                //    dataType: "json",
-                //    dataSrc: ""
-                //},
+                "searching": false,
+                "dom": 'rtip',
+                "paging":false,
                 columns: [
-                    //{ data: "Compania" },
-                    //{ data: "Ruc" },
-                    //{ data: "Direccion" },
-                    //{ data: "Jefe" },
-                    //{ data: "Location" },
-                    //{ data: "Cargo" },
-                    //{ data: "Area" },
-                    //{ data: "Proyecto" },
-                    //{ data: "PersonalID" },
-                    //{ data: "NombreCompleto" },
-                    //{ data: "FechaIngreso" },
                     { data: "PeriodoVacacional" },
                     { data: "FechaInicioSalida" },
                     { data: "FechaFinSalida" },
@@ -173,6 +153,9 @@
                 ],
                 error: (xhr, status, error) => Swal.fire("Error " + error)
             });
+
+
+
             updateElements();
         });
 
@@ -183,22 +166,44 @@
              //actualizar datos de tabla
             tablavaciones.clear();
             tablavaciones.rows.add(datavacaciones).draw();
-
+                     
             //actualizar elementos
-
             if (datavacaciones.length > 0) {
                 document.getElementById("compania").setAttribute("value", datavacaciones[0].Compania);
                 document.getElementById("ruc").setAttribute("value", datavacaciones[0].Ruc);
                 document.getElementById("jefe").setAttribute("value", datavacaciones[0].Jefe);
-                document.getElementById("direccion").setAttribute("value", datavacaciones[0].Direccion);
                 document.getElementById("location").setAttribute("value", datavacaciones[0].Location);
                 document.getElementById("cargo").setAttribute("value", datavacaciones[0].Cargo);
-                document.getElementById("area").setAttribute("value", datavacaciones[0].Area);
-                document.getElementById("proyecto").setAttribute("value", datavacaciones[0].Proyecto);
+                document.getElementById("area").setAttribute("value", datavacaciones[0].Area);       
+                document.getElementById("ccosto").setAttribute("value", datavacaciones[0].Ccosto);
                 document.getElementById("personalid").setAttribute("value", datavacaciones[0].PersonalID);
                 document.getElementById("nombrecompleto").setAttribute("value", datavacaciones[0].NombreCompleto);
+                document.getElementById("tipdoc").setAttribute("value", datavacaciones[0].TipoDocumento);
+                document.getElementById("numerodoc").setAttribute("value", datavacaciones[0].NumeroDocumento);
                 document.getElementById("fechaingreso").setAttribute("value", datavacaciones[0].FechaIngreso);
+
+                //obtener totales
+                let totalDiasSalida = 0.0;
+                let totalDiasVencidos = 0.0;
+                let totalDiasPendientes = 0.0;
+                let totalDiasTruncos = 0.0;
+
+                datavacaciones.forEach(element => {
+                    totalDiasSalida = totalDiasSalida + parseFloat(element.DiasSalida);
+                    totalDiasVencidos = totalDiasVencidos + parseFloat(element.DiasIndemnizable);
+                    totalDiasPendientes = totalDiasPendientes + parseFloat(element.DiasPendiente);
+                    totalDiasTruncos = totalDiasTruncos + parseFloat(element.DiasTruncos);
+                });
+
+                //document.getElementById("totalDiasSalida").setAttribute("value", totalDiasSalida.toString());
+                //document.getElementById("totalDiasVencidos").setAttribute("value", totalDiasVencidos.toString());
+                //document.getElementById("totalDiasPendientes").setAttribute("value", totalDiasPendientes.toString());
+                //document.getElementById("totalDiasTruncos").setAttribute("value", totalDiasTruncos.toString());
+
+                document.getElementById("tfTotales").innerHTML = '<th>Total de Dias</th><th></th><th></th><th>' + totalDiasSalida.toString() + '</th><th>' + totalDiasVencidos.toString() + '</th><th>' + totalDiasPendientes.toString() +'</th><th>' + totalDiasTruncos.toString()+'</th>';
             }
+
+
         }
 
         function loadAnimation(timer) {

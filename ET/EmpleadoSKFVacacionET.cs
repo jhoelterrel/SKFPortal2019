@@ -16,8 +16,11 @@ namespace ET
         public String Cargo { get; set; }
         public String Area { get; set; }
         public String Proyecto { get; set; }
+        public String Ccosto { get; set; }
         public String PersonalID { get; set; }
         public String NombreCompleto { get; set; }
+        public String TipoDocumento { get; set; }
+        public String NumeroDocumento { get; set; }
         public String FechaIngreso { get; set; }
         public String PeriodoVacacional { get; set; }
         public String FechaInicioSalida { get; set; }
