@@ -73,6 +73,38 @@ namespace DAL
             return listaPersonal;
         }
 
+        public EmpleadoSKFBoletaET GenerarBoletaBD()
+        {
+            EmpleadoSKFBoletaET boletaSKFET = new EmpleadoSKFBoletaET();
+
+            using (ConnectionDB conn = new ConnectionDB())
+            {
+                using (SqlCommand cmd = new SqlCommand("FEXT_SP_USUARIOS_LOGIN", conn.connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@VC_USUARIO", "");
+
+
+                    conn.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            //FALTA
+                        }
+                    }
+
+                    conn.Close();
+                }
+            }
+
+            return boletaSKFET;
+        }
+
         public UsuarioSKFET LoginBD(String clave, String usuario)
         {
             UsuarioSKFET usuarioSKFET = new UsuarioSKFET();
