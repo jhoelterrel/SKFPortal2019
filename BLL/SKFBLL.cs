@@ -11,8 +11,11 @@ namespace BLL
     public class SKFBLL
     {
         private readonly EmpleadoSKFDAL datos = new EmpleadoSKFDAL();
+
         public List<EmpleadoSKFVacacionET> ListarVacaciones(string ppersonal_id) => datos.ListarVacacionesBD(ppersonal_id);
 
         public UsuarioSKFET Login(String clave, String usuario) => datos.LoginBD(clave, usuario);
+
+        public EmpleadoSKFBoletaET GenerarBoleta() => datos.GenerarBoletaBD();
     }
 }
