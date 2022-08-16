@@ -77,10 +77,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EjercicioSKFET.cs" />
     <Compile Include="EmpleadoSFKET.cs" />
     <Compile Include="EmpleadoSKFBoletaET.cs" />
+    <Compile Include="EmpleadoSKFSolicitudET.cs" />
     <Compile Include="EmpleadoSKFVacacionET.cs" />
+    <Compile Include="PeriodoSKFET.cs" />
+    <Compile Include="ProcesoSKFET.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolicitudVacacionET.cs" />
     <Compile Include="UsuarioSKFET.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

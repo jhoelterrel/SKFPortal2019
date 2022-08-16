@@ -76,36 +76,72 @@
                 <div id="collapseNomina" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Componentes:</h6>
-                        <a class="collapse-item" href="@Url.Action("VerBoletas", "Home")">Ver Boletas</a>
+                        <a class="collapse-item" href="@Url.Action("VerBoletas", "Home")">Boletas de Pago</a>
                     </div>
                 </div>
             </li>
 
+
+            @if ((bool)Session["Is_Jefe"] == true || (bool)Session["Is_RRHH"] == true)
+            {
+                <!-- Divider -->
+                <li><hr class="dropdown-divider"></li>
+
+                <!-- Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Mis Solicitudes
+                    </div>
+                </li>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSolicitudes"
+                       aria-expanded="true" aria-controls="collapseNomina">
+                        <i class="fa-solid fa-people-group"></i>
+                        <span>Servicios</span>
+                    </a>
+                    <div id="collapseSolicitudes" class="collapse" data-bs-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Componentes:</h6>
+                            @if ((bool)Session["Is_Jefe"] == true)
+                            {
+                                <a class="collapse-item" href="@Url.Action("MisSolicitudesJefe", "Home")">Mis Solicitudes - Jefe</a>
+                            }
+                            @if ((bool)Session["Is_RRHH"] == true)
+                            {
+                                <a class="collapse-item" href="@Url.Action("MisSolicitudesRRHH", "Home")">Mis Solicitudes - RRHH</a>
+                            }
+                        </div>
+                    </div>
+                </li>
+            }
+
             <!--<li><hr class="dropdown-divider"></li> -->
             <!-- Heading -->
             <!--
-            <li>
-                <div class="sidebar-heading">
-                    Users
-                </div>
-            </li>
-            -->
+    <li>
+        <div class="sidebar-heading">
+            Users
+        </div>
+    </li>
+    -->
             <!-- Nav Item - Pages Collapse Menu -->
             <!--
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
-                   aria-expanded="true" aria-controls="collapseUsers">
-                    <i class="fa fa-fw fa-user"></i>
-                    <span>Users</span>
-                </a>
-                <div id="collapseUsers" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Components:</h6>
-                        <a class="collapse-item" href="@Url.Action("Users", "Users")">Users</a>
-                </div>
-                    </div>
-                </li>
-            -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
+           aria-expanded="true" aria-controls="collapseUsers">
+            <i class="fa fa-fw fa-user"></i>
+            <span>Users</span>
+        </a>
+        <div id="collapseUsers" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Components:</h6>
+                <a class="collapse-item" href="@Url.Action("Users", "Users")">Users</a>
+        </div>
+            </div>
+        </li>
+    -->
 
             <li><hr class="dropdown-divider d-none d-md-block"></li>
 
@@ -161,7 +197,7 @@
                                 @*<div class="dropdown-divider"></div>*@
                                 <a class="dropdown-item" href="@Url.Action("Logout", "Account")">
                                     <i class="fa fa-sign-out mr-2 text-gray-400"></i>
-                                    Logout
+                                    Cerrar Sesión
                                 </a>
                             </div>
                         </li>
@@ -180,7 +216,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; TEAM STIC</span>
+                        <span>Creado por &reg; STIC CORP SAC</span>
                     </div>
                 </div>
             </footer>

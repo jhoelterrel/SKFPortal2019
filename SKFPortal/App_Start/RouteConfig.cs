@@ -12,6 +12,8 @@ namespace SKFPortal
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*(CrystalImageHandler).*" });
+
 
             routes.MapRoute(
                 name: "Default",

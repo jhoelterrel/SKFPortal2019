@@ -81,6 +81,7 @@
     <Compile Include="ConnectionDB.cs" />
     <Compile Include="EmpleadoSKFDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteSKFDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ET\ET.csproj">

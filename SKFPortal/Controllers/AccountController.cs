@@ -1,4 +1,5 @@
 ﻿using BLL;
+using HL;
 using SKFPortal.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace SKFPortal.Controllers
                 return RedirectToAction("Dashboard", "Home");
             }
             vmUser vm = new vmUser();
-            vm.username = "juan.adm24@gmail.com";
+            vm.username = "juan.curihuaman@skf.com";
             vm.password = "SKF123";
             return View(vm);
         }
@@ -40,6 +41,9 @@ namespace SKFPortal.Controllers
                         FormsAuthentication.SetAuthCookie(usuarioSKF.Personal_id, false);
                         Session["UsuarioSKF"] = usuarioSKF;
                         Session["NombreUsuario"] = string.Format("{0}, {1} {2}", usuarioSKF.Nombres, usuarioSKF.Apellido_Paterno, usuarioSKF.Apellido_Materno);
+                        Session["Is_RRHH"] = usuarioSKF.Is_RRHH;
+                        Session["Is_Jefe"] = usuarioSKF.Is_Jefe;
+
                         return RedirectToAction("Dashboard", "Home");
 
                     }
@@ -57,6 +61,8 @@ namespace SKFPortal.Controllers
             }
             catch (Exception ex)
             {
+                Log.RegistroLog(ex.Message);
+
                 return View();
             }
             

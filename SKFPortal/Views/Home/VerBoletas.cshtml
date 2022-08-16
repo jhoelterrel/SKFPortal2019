@@ -1,19 +1,48 @@
-﻿
-@{
-    ViewBag.Title = "Ver Boletas";
+﻿@{
+    ViewBag.Title = "Boletas de Pago";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1>Ver Boletas</h1>
-        </div>
-        <div class="col-12">
-            @*<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#solicitarVacacionesModal">Solicitar Vacaciones</button>*@
-        </div>
-        <div class="col-12">
-            <p><a href="@Url.Action("GenerarBoleta", "Home")">Reporte boleta</a></p>
-        </div>
+@model SKFPortal.ViewModel.vmReporteBoleta
+
+
+<div class="row">
+    <div class="col-12">
+        <h1>Boletas de Pago</h1>
     </div>
+
+
+
+
+    <div class="col-6">
+        <label class="control-label">Compañia:</label>
+        @Html.TextBoxFor(m => m.Compania, new { @class = "form-control", @disabled = "disabled" })
+    </div>
+    <div class="col-6">
+        <label class="control-label">Planilla:</label>
+        @Html.TextBoxFor(m => m.Planilla, new { @class = "form-control", @disabled = "disabled" })
+    </div>
+    <div class="col-6">
+        <label class="control-label">Ejercicio:</label>
+        @Html.DropDownListFor(m => m.Ejercicio, new SelectList(Model.ListaEjercicio, "Value", "Text", Model.Ejercicio), new { @class = "form-control" })
+    </div>
+    <div class="col-6">
+        <label class="control-label">Periodo:</label>
+        @Html.DropDownListFor(m => m.Periodo, new SelectList(Model.ListaPeriodo, "Value", "Text", Model.Periodo), new { @class = "form-control" })
+    </div>
+    <div class="col-6">
+        <label class="control-label">Proceso:</label>
+        @Html.DropDownListFor(m => m.Proceso, new SelectList(Model.ListaProceso, "Value", "Text", Model.Proceso), new { @class = "form-control" })
+    </div>
+    <div class="col-auto pt-xl-3">
+        <button class="btn btn-primary" type="button" id="btnGenerarReporteBoleta">Generar Boleta</button>
+    </div>
+    @*<div class="col-auto pt-3">
+        <button class="btn btn-primary" type="button" id="btnDescargarReporteBoleta">Descargar Boleta</button>
+    </div>*@
+
 </div>
-<a href="~/Views/Home/VerBoletas.cshtml">~/Views/Home/VerBoletas.cshtml</a>
+
+
+@section Scripts{
+    <script src="~/Scripts/Boleta/ReporteBoleta.js"></script>
+}

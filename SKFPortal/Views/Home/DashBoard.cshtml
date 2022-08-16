@@ -22,8 +22,26 @@
             <div class="m-5">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Nominas</h5>
-                        <p class="card-text"><a href="@Url.Action("VerBoletas", "Home")">Ver Boletas</a></p>
+                        <h5 class="card-title">Boletas</h5>
+                        <p class="card-text"><a href="@Url.Action("VerBoletas", "Home")">Boletas de Pago</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-24">
+            <div class="m-5">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Solicitudes</h5>
+                        @if ((bool)Session["Is_Jefe"] == true)
+                        {
+                            <p class="card-text"><a href="@Url.Action("MisSolicitudesJefe", "Home")">Mis Solicitudes - Jefe</a></p>
+                        }
+
+                        @if ((bool)Session["Is_RRHH"] == true)
+                        {
+                            <p class="card-text"><a href="@Url.Action("MisSolicitudesRRHH", "Home")">Mis Solicitudes - RRHH</a></p>
+                        }
                     </div>
                 </div>
             </div>

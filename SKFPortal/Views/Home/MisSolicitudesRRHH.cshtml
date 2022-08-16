@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Mis Solicitudes - RRHH";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Mis Solicitudes - RRHH</h1>
+        </div>
+        <div class="col-12">
+            <div class="table-responsive m-3">
+                <table class="table w-100 table-responsive-md" id="solicitudesRRHH">
+                    <thead>
+                        <tr>
+                            <th><p>Nro_Solicitud</p></th>
+                            <th><p>Personal_Id</p></th>
+                            <th><p>Nombres</p></th>
+                            <th><p>Apellido_Paterno</p></th>
+                            <th><p>Apellido_Materno</p></th>
+                            <th><p>Email</p></th>
+                            <th><p>Nro_Dias</p></th>
+                            <th><p>Fecha_Inicio</p></th>
+                            <th><p>Fecha_Fin</p></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        let datasolicitud;
+        let tablavaciones;
+        async function getDataSolicitud() {
+            loadAnimation(false);
+            let response = await fetch("@Url.Action("ObtenerSolicitudes", "Home")", {
+                                        method: "GET",
+                                        cache: "no-cache",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+            });
+            closeAnimation();
+         return response.json();
+        }
+
+        $(function () {
+
+            tablavaciones = $("#vacacionesDatosVacacion").DataTable({
+                "searching": false,
+                "dom": 'rtip',
+                "paging":false,
+                columns: [
+                    { data: "PeriodoVacacional" },
+                    { data: "FechaInicioSalida" },
+                    { data: "FechaFinSalida" },
+                    { data: "DiasSalida" },
+                    { data: "DiasIndemnizable" },
+                    { data: "DiasPendiente" },
+                    { data: "DiasTruncos" }
+                ],
+                error: (xhr, status, error) => Swal.fire("Error " + error)
+            });
+
+            updateElements();
+        });
+
+        async function updateElements() {
+           //obtener data
+            datavacaciones = await getDataVacaciones();
+            console.log(datavacaciones)
+             //actualizar datos de tabla
+            tablavaciones.clear();
+            tablavaciones.rows.add(datavacaciones).draw();
+
+            //actualizar elementos
+            if (datavacaciones.length > 0) {
+                document.getElementById("compania").setAttribute("value", datavacaciones[0].Compania);
+                document.getElementById("ruc").setAttribute("value", datavacaciones[0].Ruc);
+                document.getElementById("jefe").setAttribute("value", datavacaciones[0].Jefe);
+                document.getElementById("location").setAttribute("value", datavacaciones[0].Location);
+                document.getElementById("cargo").setAttribute("value", datavacaciones[0].Cargo);
+                document.getElementById("area").setAttribute("value", datavacaciones[0].Area);
+                document.getElementById("ccosto").setAttribute("value", datavacaciones[0].Ccosto);
+                document.getElementById("personalid").setAttribute("value", datavacaciones[0].PersonalID);
+                document.getElementById("nombrecompleto").setAttribute("value", datavacaciones[0].NombreCompleto);
+                document.getElementById("tipdoc").setAttribute("value", datavacaciones[0].TipoDocumento);
+                document.getElementById("numerodoc").setAttribute("value", datavacaciones[0].NumeroDocumento);
+                document.getElementById("fechaingreso").setAttribute("value", datavacaciones[0].FechaIngreso);
+
+                document.getElementById("infEmpleadoNombre").setAttribute("value", datavacaciones[0].PersonalID + "\t" + datavacaciones[0].NombreCompleto);
+                document.getElementById("infArea").setAttribute("value", datavacaciones[0].Area);
+                document.getElementById("infFechaInicioLabores").setAttribute("value", datavacaciones[0].FechaIngreso);
+                //obtener totales
+                let totalDiasSalida = 0.0;
+                let totalDiasVencidos = 0.0;
+                let totalDiasPendientes = 0.0;
+                let totalDiasTruncos = 0.0;
+
+                datavacaciones.forEach(element => {
+                    totalDiasSalida = totalDiasSalida + parseFloat(element.DiasSalida);
+                    totalDiasVencidos = totalDiasVencidos + parseFloat(element.DiasIndemnizable);
+                    totalDiasPendientes = totalDiasPendientes + parseFloat(element.DiasPendiente);
+                    totalDiasTruncos = totalDiasTruncos + parseFloat(element.DiasTruncos);
+                });
+
+            }
+
+
+        }
+
+        function loadAnimation(timer) {
+            Swal.fire({
+                title: "Cargando...",
+                html: "<b>Espere un momento...</b>",
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                timer: timer,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+        }
+
+        function closeAnimation() {
+            Swal.close();
+        }
+
+</script>
+
+}
